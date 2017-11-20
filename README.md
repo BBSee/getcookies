@@ -17,3 +17,8 @@ selenium  3.7.0
 
 Chrome：60.0.3112.90（正式版本） （64 位）
 
+# 使用
+
+```
+$ python getcookies.py
+```
