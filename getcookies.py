@@ -13,7 +13,6 @@
 
 from selenium import webdriver
 
-import requests
 import time
 
 try:
@@ -30,6 +29,12 @@ class WeiboCookies(object):
         # "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36\
         # (KHTML, like Gecko) Chrome/48.0.2564.23 Mobile Safari/537.36"
         # )
+        """
+        :param url:网站的登录地址
+        :param driver:一个初始化的selenium实例
+        :param username:用户名
+        :param password:密码
+        """
         self.url = url
         self.driver = driver
         self.username = username
@@ -42,6 +47,7 @@ class WeiboCookies(object):
 
     def _is_open(self, element):
         """判断是否存在某个元素，代表页面正常打开
+        :param element:网页中的一个元素，Xpath写法
         """
         if element is not None:
             return
@@ -122,29 +128,25 @@ def choose_site(*args, **keys):
     cls = sites[site](*args)
     return cls
 
-
-if __name__ == '__main__':
-    # 获取哪个网站的cookies，默认微博
-    site = 'douban'  # 'weibo', 'douban'
-    # 登录页面
-    url = 'https://www.douban.com/'
-    # 账号
-    username = ''
-    # 密码
-    password = ''
-
-    # # 获取哪个网站的cookies，默认微博
-    # site = 'weibo' # 'weibo', 'douban'
-    # # 登录页面
-    # url = 'https://passport.weibo.cn/signin/login?entry=mweibo'
-    # # 账号
-    # username = ''
-    # # 密码
-    # password = ''
-
-    # 默认使用chrome驱动
+def main():
+    # 默认使用Chrome驱动
     driver = webdriver.Chrome()
 
     gc = choose_site(url, driver, username, password, site=site)
 
     gc.store_cookies()
+
+if __name__ == '__main__':
+    # 获取哪个网站的cookies，豆瓣
+    site = 'douban'  # 'weibo', 'douban'
+
+    # 登录页面
+    url = 'https://www.douban.com/'
+    #url = 'https://passport.weibo.cn/signin/login?entry=mweibo'
+
+    # 账号
+    username = ''
+    # 密码
+    password = ''
+
+    main()
