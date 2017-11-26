@@ -129,12 +129,15 @@ def choose_site(*args, **keys):
     return cls
 
 def main():
-    # 默认使用Chrome驱动
-    driver = webdriver.Chrome()
+    if len(site) > 0 and len(url) > 0 and len(username) > 0 and password > 0:
+        # 默认使用Chrome驱动
+        driver = webdriver.Chrome()
+        
+        gc = choose_site(url, driver, username, password, site=site)
+        gc.store_cookies()
 
-    gc = choose_site(url, driver, username, password, site=site)
-
-    gc.store_cookies()
+    else:
+        print '请检查输入项是否填写正确！'
 
 if __name__ == '__main__':
     # 获取哪个网站的cookies，豆瓣
